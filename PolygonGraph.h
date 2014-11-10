@@ -14,2163 +14,2163 @@
 
 namespace graph
 {
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	// DEFAULT POLYGON GRAPH TRAITS CLASS +++++++++++++++++++++++++++++++++++++
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // DEFAULT POLYGON GRAPH TRAITS CLASS +++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	class DefaultPGTraits
-	{
-		public:
+    class DefaultPGTraits
+    {
+        public:
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		// BASE VERTEX CLASS --------------------------------------------------
+        // BASE VERTEX CLASS --------------------------------------------------
 
-		class BaseVertex {};
+        class BaseVertex {};
 
-		// BASE EDGE CLASS ----------------------------------------------------
+        // BASE EDGE CLASS ----------------------------------------------------
 
-		class BaseEdge {};
+        class BaseEdge {};
 
-		// BASE POLYGON CLASS -------------------------------------------------
+        // BASE POLYGON CLASS -------------------------------------------------
 
-		class BasePolygon {};
+        class BasePolygon {};
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	};
-	
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	// POLYGON GRAPH CLASS ++++++++++++++++++++++++++++++++++++++++++++++++++++
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    };
+    
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // POLYGON GRAPH CLASS ++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-	template< class Traits = DefaultPGTraits >
-	class PolygonGraph
-	{
-		public:
+    template< class Traits = DefaultPGTraits >
+    class PolygonGraph
+    {
+        public:
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		// SIZE TYPE ----------------------------------------------------------
+        // SIZE TYPE ----------------------------------------------------------
 
-		typedef std::size_t size_type;
+        typedef std::size_t size_type;
 
-		// BASE PRIMITIVES ----------------------------------------------------
+        // BASE PRIMITIVES ----------------------------------------------------
 
-		typedef typename Traits::BaseVertex BaseVertex;
-		typedef typename Traits::BaseEdge BaseEdge;
-		typedef typename Traits::BasePolygon BasePolygon;
+        typedef typename Traits::BaseVertex BaseVertex;
+        typedef typename Traits::BaseEdge BaseEdge;
+        typedef typename Traits::BasePolygon BasePolygon;
 
-		// PRIMITIVES ---------------------------------------------------------
+        // PRIMITIVES ---------------------------------------------------------
 
-		class Vertex;
-		class Edge;
-		class Polygon;
+        class Vertex;
+        class Edge;
+        class Polygon;
 
-		// VERTEX ITERATOR CLASS ----------------------------------------------
+        // VERTEX ITERATOR CLASS ----------------------------------------------
 
-		class ConstVertexIterator; // forward declaration
+        class ConstVertexIterator; // forward declaration
 
-		class VertexIterator : public std::bidirectional_iterator_tag
-		{
-			public:
+        class VertexIterator : public std::bidirectional_iterator_tag
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class Vertex;
-			friend class ConstVertexIterator;
-			friend class PolygonGraph< Traits >;
+            friend class Vertex;
+            friend class ConstVertexIterator;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			typedef typename std::list< Vertex >::iterator VertexListIterator;
+            typedef typename std::list< Vertex >::iterator VertexListIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			VertexIterator( void )
-			{
-				// empty
-			}
+            VertexIterator( void )
+            {
+                // empty
+            }
 
-			VertexIterator( VertexListIterator iter )
-			{
-				this->iter = iter;
-			}
+            VertexIterator( VertexListIterator iter )
+            {
+                this->iter = iter;
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			VertexIterator( VertexIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            VertexIterator( VertexIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			VertexIterator( VertexIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            VertexIterator( VertexIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~VertexIterator( void )
-			{
-				// empty
-			}
+            ~VertexIterator( void )
+            {
+                // empty
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			VertexIterator const & operator = ( VertexIterator const & other )
-			{
-				this->iter = other.iter;
+            VertexIterator const & operator = ( VertexIterator const & other )
+            {
+                this->iter = other.iter;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			VertexIterator const & operator = ( VertexIterator && other )
-			{
-				this->iter = other.iter;
+            VertexIterator const & operator = ( VertexIterator && other )
+            {
+                this->iter = other.iter;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// EQUALITY -------------------------------------------------------
+            // EQUALITY -------------------------------------------------------
 
-			bool const operator == ( VertexIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( VertexIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			bool const operator == ( ConstVertexIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( ConstVertexIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			// INEQUALITY -----------------------------------------------------
+            // INEQUALITY -----------------------------------------------------
 
-			bool const operator != ( VertexIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( VertexIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			bool const operator != ( ConstVertexIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( ConstVertexIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			// INDIRECTION ----------------------------------------------------
+            // INDIRECTION ----------------------------------------------------
 
-			Vertex & operator * ( void ) const
-			{
-				return *iter;
-			}
+            Vertex & operator * ( void ) const
+            {
+                return *iter;
+            }
 
-			// STRUCTURE DEREFERENCE ------------------------------------------
+            // STRUCTURE DEREFERENCE ------------------------------------------
 
-			Vertex * operator -> ( void ) const
-			{
-				return &( *iter );
-			}
+            Vertex * operator -> ( void ) const
+            {
+                return &( *iter );
+            }
 
-			// INCREMENT ------------------------------------------------------
+            // INCREMENT ------------------------------------------------------
 
-			VertexIterator const & operator ++ ( void ) // prefix
-			{
-				++iter;
-				return *this;
-			}
+            VertexIterator const & operator ++ ( void ) // prefix
+            {
+                ++iter;
+                return *this;
+            }
 
-			VertexIterator const operator ++ ( int ) // postfix
-			{
-				VertexIterator copy( *this );
-				++iter;
-				return copy;
-			}
+            VertexIterator const operator ++ ( int ) // postfix
+            {
+                VertexIterator copy( *this );
+                ++iter;
+                return copy;
+            }
 
-			// DECREMENT ------------------------------------------------------
+            // DECREMENT ------------------------------------------------------
 
-			VertexIterator const & operator -- ( void ) // prefix
-			{
-				--iter;
-				return *this;
-			}
+            VertexIterator const & operator -- ( void ) // prefix
+            {
+                --iter;
+                return *this;
+            }
 
-			VertexIterator const operator -- ( int ) // postfix
-			{
-				VertexIterator copy( *this );
-				--iter;
-				return copy;
-			}
+            VertexIterator const operator -- ( int ) // postfix
+            {
+                VertexIterator copy( *this );
+                --iter;
+                return copy;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			VertexListIterator iter;
+            VertexListIterator iter;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		class ConstVertexIterator : public std::bidirectional_iterator_tag
-		{
-			public:
+        class ConstVertexIterator : public std::bidirectional_iterator_tag
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class Vertex;
-			friend class VertexIterator;
-			friend class PolygonGraph< Traits >;
+            friend class Vertex;
+            friend class VertexIterator;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			typedef typename std::list< Vertex >::iterator VertexListIterator;
+            typedef typename std::list< Vertex >::iterator VertexListIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			ConstVertexIterator( void )
-			{
-				// empty
-			}
+            ConstVertexIterator( void )
+            {
+                // empty
+            }
 
-			ConstVertexIterator( VertexListIterator iter )
-			{
-				this->iter = iter;
-			}
+            ConstVertexIterator( VertexListIterator iter )
+            {
+                this->iter = iter;
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			ConstVertexIterator( ConstVertexIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            ConstVertexIterator( ConstVertexIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			ConstVertexIterator( VertexIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            ConstVertexIterator( VertexIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			ConstVertexIterator( ConstVertexIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            ConstVertexIterator( ConstVertexIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			ConstVertexIterator( VertexIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            ConstVertexIterator( VertexIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~ConstVertexIterator( void )
-			{
-				// empty
-			}
+            ~ConstVertexIterator( void )
+            {
+                // empty
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			ConstVertexIterator const & operator =
-				( ConstVertexIterator const & other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator =
+                ( ConstVertexIterator const & other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			ConstVertexIterator const & operator =
-				( VertexIterator const & other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator =
+                ( VertexIterator const & other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			ConstVertexIterator const & operator =
-				( ConstVertexIterator && other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator =
+                ( ConstVertexIterator && other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			ConstVertexIterator const & operator = ( VertexIterator && other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator = ( VertexIterator && other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// EQUALITY -------------------------------------------------------
+            // EQUALITY -------------------------------------------------------
 
-			bool const operator == ( ConstVertexIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( ConstVertexIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			bool const operator == ( VertexIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( VertexIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			// INEQUALITY -----------------------------------------------------
+            // INEQUALITY -----------------------------------------------------
 
-			bool const operator != ( ConstVertexIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( ConstVertexIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			bool const operator != ( VertexIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( VertexIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			// INDIRECTION ----------------------------------------------------
+            // INDIRECTION ----------------------------------------------------
 
-			Vertex const & operator * ( void ) const
-			{
-				return *iter;
-			}
+            Vertex const & operator * ( void ) const
+            {
+                return *iter;
+            }
 
-			// STRUCTURE DEREFERENCE ------------------------------------------
+            // STRUCTURE DEREFERENCE ------------------------------------------
 
-			Vertex const * operator -> ( void ) const
-			{
-				return &( *iter );
-			}
+            Vertex const * operator -> ( void ) const
+            {
+                return &( *iter );
+            }
 
-			// INCREMENT ------------------------------------------------------
+            // INCREMENT ------------------------------------------------------
 
-			ConstVertexIterator const & operator ++ ( void ) // prefix
-			{
-				++iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator ++ ( void ) // prefix
+            {
+                ++iter;
+                return *this;
+            }
 
-			ConstVertexIterator const operator ++ ( int ) // postfix
-			{
-				ConstVertexIterator copy( *this );
-				++iter;
-				return copy;
-			}
+            ConstVertexIterator const operator ++ ( int ) // postfix
+            {
+                ConstVertexIterator copy( *this );
+                ++iter;
+                return copy;
+            }
 
-			// DECREMENT ------------------------------------------------------
+            // DECREMENT ------------------------------------------------------
 
-			ConstVertexIterator const & operator -- ( void ) // prefix
-			{
-				--iter;
-				return *this;
-			}
+            ConstVertexIterator const & operator -- ( void ) // prefix
+            {
+                --iter;
+                return *this;
+            }
 
-			ConstVertexIterator const operator -- ( int ) // postfix
-			{
-				ConstVertexIterator copy( *this );
-				--iter;
-				return copy;
-			}
+            ConstVertexIterator const operator -- ( int ) // postfix
+            {
+                ConstVertexIterator copy( *this );
+                --iter;
+                return copy;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			VertexListIterator iter;
+            VertexListIterator iter;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		// POLYGON ITERATOR CLASS ---------------------------------------------
+        // POLYGON ITERATOR CLASS ---------------------------------------------
 
-		class ConstPolygonIterator; // forward declaration
+        class ConstPolygonIterator; // forward declaration
 
-		class PolygonIterator : public std::bidirectional_iterator_tag
-		{
-			public:
+        class PolygonIterator : public std::bidirectional_iterator_tag
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class ConstPolygonIterator;
-			friend class PolygonGraph< Traits >;
+            friend class ConstPolygonIterator;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			typedef typename std::list< Polygon >::iterator
-				PolygonListIterator;
+            typedef typename std::list< Polygon >::iterator
+                PolygonListIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			PolygonIterator( void )
-			{
-				// empty
-			}
+            PolygonIterator( void )
+            {
+                // empty
+            }
 
-			PolygonIterator( PolygonListIterator iter )
-			{
-				this->iter = iter;
-			}
+            PolygonIterator( PolygonListIterator iter )
+            {
+                this->iter = iter;
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			PolygonIterator( PolygonIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            PolygonIterator( PolygonIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			PolygonIterator( PolygonIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            PolygonIterator( PolygonIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~PolygonIterator( void )
-			{
-				// empty
-			}
+            ~PolygonIterator( void )
+            {
+                // empty
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			PolygonIterator const & operator =
-				( PolygonIterator const & other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            PolygonIterator const & operator =
+                ( PolygonIterator const & other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			PolygonIterator const & operator =
-				( PolygonIterator && other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            PolygonIterator const & operator =
+                ( PolygonIterator && other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// EQUALITY -------------------------------------------------------
+            // EQUALITY -------------------------------------------------------
 
-			bool const operator == ( PolygonIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( PolygonIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			bool const operator == ( ConstPolygonIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( ConstPolygonIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			// INEQUALITY -----------------------------------------------------
+            // INEQUALITY -----------------------------------------------------
 
-			bool const operator != ( PolygonIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( PolygonIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			bool const operator != ( ConstPolygonIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( ConstPolygonIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			// INDIRECTION ----------------------------------------------------
+            // INDIRECTION ----------------------------------------------------
 
-			Polygon & operator * ( void ) const
-			{
-				return *iter;
-			}
+            Polygon & operator * ( void ) const
+            {
+                return *iter;
+            }
 
-			// STRUCTURE DEREFERENCE ------------------------------------------
+            // STRUCTURE DEREFERENCE ------------------------------------------
 
-			Polygon * operator -> ( void ) const
-			{
-				return &( *iter );
-			}
+            Polygon * operator -> ( void ) const
+            {
+                return &( *iter );
+            }
 
-			// INCREMENT ------------------------------------------------------
+            // INCREMENT ------------------------------------------------------
 
-			PolygonIterator const & operator ++ ( void ) // prefix
-			{
-				++iter;
-				return *this;
-			}
+            PolygonIterator const & operator ++ ( void ) // prefix
+            {
+                ++iter;
+                return *this;
+            }
 
-			PolygonIterator const operator ++ ( int ) // postfix
-			{
-				PolygonIterator copy( *this );
-				++iter;
-				return copy;
-			}
+            PolygonIterator const operator ++ ( int ) // postfix
+            {
+                PolygonIterator copy( *this );
+                ++iter;
+                return copy;
+            }
 
-			// DECREMENT ------------------------------------------------------
+            // DECREMENT ------------------------------------------------------
 
-			PolygonIterator const & operator -- ( void ) // prefix
-			{
-				--iter;
-				return *this;
-			}
+            PolygonIterator const & operator -- ( void ) // prefix
+            {
+                --iter;
+                return *this;
+            }
 
-			PolygonIterator const operator -- ( int ) // postfix
-			{
-				PolygonIterator copy( *this );
-				--iter;
-				return copy;
-			}
+            PolygonIterator const operator -- ( int ) // postfix
+            {
+                PolygonIterator copy( *this );
+                --iter;
+                return copy;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			PolygonListIterator iter;
+            PolygonListIterator iter;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		class ConstPolygonIterator : public std::bidirectional_iterator_tag
-		{
-			public:
+        class ConstPolygonIterator : public std::bidirectional_iterator_tag
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class PolygonIterator;
-			friend class PolygonGraph< Traits >;
+            friend class PolygonIterator;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			typedef typename std::list< Polygon >::iterator
-				PolygonListIterator;
+            typedef typename std::list< Polygon >::iterator
+                PolygonListIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			ConstPolygonIterator( void )
-			{
-				// empty
-			}
+            ConstPolygonIterator( void )
+            {
+                // empty
+            }
 
-			ConstPolygonIterator( PolygonListIterator iter )
-			{
-				this->iter = iter;
-			}
+            ConstPolygonIterator( PolygonListIterator iter )
+            {
+                this->iter = iter;
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			ConstPolygonIterator( ConstPolygonIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            ConstPolygonIterator( ConstPolygonIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			ConstPolygonIterator( PolygonIterator const & other )
-			{
-				this->iter = other.iter;
-			}
+            ConstPolygonIterator( PolygonIterator const & other )
+            {
+                this->iter = other.iter;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			ConstPolygonIterator( ConstPolygonIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            ConstPolygonIterator( ConstPolygonIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			ConstPolygonIterator( PolygonIterator && other )
-			{
-				this->iter = other.iter;
-			}
+            ConstPolygonIterator( PolygonIterator && other )
+            {
+                this->iter = other.iter;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~ConstPolygonIterator( void )
-			{
-				// empty
-			}
+            ~ConstPolygonIterator( void )
+            {
+                // empty
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			ConstPolygonIterator const & operator =
-				( ConstPolygonIterator const & other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator =
+                ( ConstPolygonIterator const & other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			ConstPolygonIterator const & operator =
-				( PolygonIterator const & other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator =
+                ( PolygonIterator const & other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			ConstPolygonIterator const & operator =
-				( ConstPolygonIterator && other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator =
+                ( ConstPolygonIterator && other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			ConstPolygonIterator const & operator =
-				( PolygonIterator && other )
-			{
-				this->iter = other.iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator =
+                ( PolygonIterator && other )
+            {
+                this->iter = other.iter;
+                return *this;
+            }
 
-			// EQUALITY -------------------------------------------------------
+            // EQUALITY -------------------------------------------------------
 
-			bool const operator == ( ConstPolygonIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( ConstPolygonIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			bool const operator == ( PolygonIterator const & other ) const
-			{
-				return this->iter == other.iter;
-			}
+            bool const operator == ( PolygonIterator const & other ) const
+            {
+                return this->iter == other.iter;
+            }
 
-			// INEQUALITY -----------------------------------------------------
+            // INEQUALITY -----------------------------------------------------
 
-			bool const operator != ( ConstPolygonIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( ConstPolygonIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			bool const operator != ( PolygonIterator const & other ) const
-			{
-				return this->iter != other.iter;
-			}
+            bool const operator != ( PolygonIterator const & other ) const
+            {
+                return this->iter != other.iter;
+            }
 
-			// INDIRECTION ----------------------------------------------------
+            // INDIRECTION ----------------------------------------------------
 
-			Polygon const & operator * ( void ) const
-			{
-				return *iter;
-			}
+            Polygon const & operator * ( void ) const
+            {
+                return *iter;
+            }
 
-			// STRUCTURE DEREFERENCE ------------------------------------------
+            // STRUCTURE DEREFERENCE ------------------------------------------
 
-			Polygon const * operator -> ( void ) const
-			{
-				return &( *iter );
-			}
+            Polygon const * operator -> ( void ) const
+            {
+                return &( *iter );
+            }
 
-			// INCREMENT ------------------------------------------------------
+            // INCREMENT ------------------------------------------------------
 
-			ConstPolygonIterator const & operator ++ ( void ) // prefix
-			{
-				++iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator ++ ( void ) // prefix
+            {
+                ++iter;
+                return *this;
+            }
 
-			ConstPolygonIterator const operator ++ ( int ) // postfix
-			{
-				ConstPolygonIterator copy( *this );
-				++iter;
-				return copy;
-			}
+            ConstPolygonIterator const operator ++ ( int ) // postfix
+            {
+                ConstPolygonIterator copy( *this );
+                ++iter;
+                return copy;
+            }
 
-			// DECREMENT ------------------------------------------------------
+            // DECREMENT ------------------------------------------------------
 
-			ConstPolygonIterator const & operator -- ( void ) // prefix
-			{
-				--iter;
-				return *this;
-			}
+            ConstPolygonIterator const & operator -- ( void ) // prefix
+            {
+                --iter;
+                return *this;
+            }
 
-			ConstPolygonIterator const operator -- ( int ) // postfix
-			{
-				ConstPolygonIterator copy( *this );
-				--iter;
-				return copy;
-			}
+            ConstPolygonIterator const operator -- ( int ) // postfix
+            {
+                ConstPolygonIterator copy( *this );
+                --iter;
+                return copy;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			PolygonListIterator iter;
+            PolygonListIterator iter;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		// VERTEX CLASS -------------------------------------------------------
+        // VERTEX CLASS -------------------------------------------------------
 
-		class Vertex : public BaseVertex
-		{
-			private:
+        class Vertex : public BaseVertex
+        {
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE TYPES ++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE TYPES ++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// EDGE SET LESS FUNCTOR ------------------------------------------
+            // EDGE SET LESS FUNCTOR ------------------------------------------
 
-			class EdgeSetLess
-			{
-				public:
+            class EdgeSetLess
+            {
+                public:
 
-				bool const operator () ( Edge * const & lhs,
-										 Edge * const & rhs ) const
-				{
-					return &( *( lhs->getTargetVertex() ) ) <
-						   &( *( rhs->getTargetVertex() ) );
-				}
-			};
+                bool const operator () ( Edge * const & lhs,
+                                         Edge * const & rhs ) const
+                {
+                    return &( *( lhs->getTargetVertex() ) ) <
+                           &( *( rhs->getTargetVertex() ) );
+                }
+            };
 
-			// EDGE SET -------------------------------------------------------
+            // EDGE SET -------------------------------------------------------
 
-			typedef std::multiset< Edge *, EdgeSetLess > EdgeSet;
+            typedef std::multiset< Edge *, EdgeSetLess > EdgeSet;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			public:
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class PolygonGraph< Traits >;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// ITERATORS ------------------------------------------------------
+            // ITERATORS ------------------------------------------------------
 
-			class ConstEdgeIterator; // forward declaration
+            class ConstEdgeIterator; // forward declaration
 
-			class EdgeIterator : public std::forward_iterator_tag
-			{
-				public:
+            class EdgeIterator : public std::forward_iterator_tag
+            {
+                public:
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				friend class Vertex;
-				friend class ConstEdgeIterator;
+                friend class Vertex;
+                friend class ConstEdgeIterator;
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				// CONSTRUCTORS -----------------------------------------------
+                // CONSTRUCTORS -----------------------------------------------
 
-				EdgeIterator( void )
-				{
-					// empty
-				}
+                EdgeIterator( void )
+                {
+                    // empty
+                }
 
-				EdgeIterator( typename EdgeSet::const_iterator const & iter )
-				{
-					this->iter = iter;
-				}
+                EdgeIterator( typename EdgeSet::const_iterator const & iter )
+                {
+                    this->iter = iter;
+                }
 
-				// COPY CONSTRUCTOR -------------------------------------------
+                // COPY CONSTRUCTOR -------------------------------------------
 
-				EdgeIterator( EdgeIterator const & other )
-				{
-					this->iter = other.iter;
-				}
+                EdgeIterator( EdgeIterator const & other )
+                {
+                    this->iter = other.iter;
+                }
 
-				// MOVE CONSTRUCTOR -------------------------------------------
+                // MOVE CONSTRUCTOR -------------------------------------------
 
-				EdgeIterator( EdgeIterator && other )
-				{
-					this->iter = other.iter;
-				}
+                EdgeIterator( EdgeIterator && other )
+                {
+                    this->iter = other.iter;
+                }
 
-				// DESTRUCTOR -------------------------------------------------
+                // DESTRUCTOR -------------------------------------------------
 
-				~EdgeIterator( void )
-				{
-					// empty
-				}
+                ~EdgeIterator( void )
+                {
+                    // empty
+                }
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				// COPY ASSIGNMENT --------------------------------------------
+                // COPY ASSIGNMENT --------------------------------------------
 
-				EdgeIterator const & operator = ( EdgeIterator const & other )
-				{
-					this->iter = other.iter;
+                EdgeIterator const & operator = ( EdgeIterator const & other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				// MOVE ASSIGNMENT --------------------------------------------
+                // MOVE ASSIGNMENT --------------------------------------------
 
-				EdgeIterator const & operator = ( EdgeIterator && other )
-				{
-					this->iter = other.iter;
+                EdgeIterator const & operator = ( EdgeIterator && other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				// EQUALITY ---------------------------------------------------
+                // EQUALITY ---------------------------------------------------
 
-				bool const operator == ( EdgeIterator const & other ) const
-				{
-					//return &( *( this->iter ) ) == &( *( other.iter ) );
-					return this->iter == other.iter;
-				}
+                bool const operator == ( EdgeIterator const & other ) const
+                {
+                    //return &( *( this->iter ) ) == &( *( other.iter ) );
+                    return this->iter == other.iter;
+                }
 
-				bool const operator ==
-					( ConstEdgeIterator const & other ) const
-				{
-					//return &( *( this->iter ) ) == &( *( other.iter ) );
-					return this->iter == other.iter;
-				}
+                bool const operator ==
+                    ( ConstEdgeIterator const & other ) const
+                {
+                    //return &( *( this->iter ) ) == &( *( other.iter ) );
+                    return this->iter == other.iter;
+                }
 
-				// INEQUALITY -------------------------------------------------
+                // INEQUALITY -------------------------------------------------
 
-				bool const operator != ( EdgeIterator const & other ) const
-				{
-					//return &( *( this->iter ) ) != &( *( other.iter ) );
-					return this->iter != other.iter;
-				}
+                bool const operator != ( EdgeIterator const & other ) const
+                {
+                    //return &( *( this->iter ) ) != &( *( other.iter ) );
+                    return this->iter != other.iter;
+                }
 
-				bool const operator !=
-					( ConstEdgeIterator const & other ) const
-				{
-					//return &( *( this->iter ) ) != &( *( other.iter ) );
-					return this->iter != other.iter;
-				}
+                bool const operator !=
+                    ( ConstEdgeIterator const & other ) const
+                {
+                    //return &( *( this->iter ) ) != &( *( other.iter ) );
+                    return this->iter != other.iter;
+                }
 
-				// INDIRECTION ------------------------------------------------
+                // INDIRECTION ------------------------------------------------
 
-				Edge & operator * ( void ) const
-				{
-					return **iter;
-				}
+                Edge & operator * ( void ) const
+                {
+                    return **iter;
+                }
 
-				// STRUCTURE DEREFERENCE --------------------------------------
+                // STRUCTURE DEREFERENCE --------------------------------------
 
-				Edge * operator -> ( void ) const
-				{
-					return *iter;
-				}
+                Edge * operator -> ( void ) const
+                {
+                    return *iter;
+                }
 
-				// INCREMENT --------------------------------------------------
+                // INCREMENT --------------------------------------------------
 
-				EdgeIterator const & operator ++ ( void ) // prefix
-				{
-					++iter;
+                EdgeIterator const & operator ++ ( void ) // prefix
+                {
+                    ++iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				EdgeIterator const operator ++ ( int ) // postfix
-				{
-					EdgeIterator copy( *this );
+                EdgeIterator const operator ++ ( int ) // postfix
+                {
+                    EdgeIterator copy( *this );
 
-					++iter;
+                    ++iter;
 
-					return copy;
-				}
+                    return copy;
+                }
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				private:
+                private:
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				typename EdgeSet::const_iterator iter;
+                typename EdgeSet::const_iterator iter;
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			};
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            };
 
-			class ConstEdgeIterator : public std::forward_iterator_tag
-			{
-				public:
+            class ConstEdgeIterator : public std::forward_iterator_tag
+            {
+                public:
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				friend class Vertex;
-				friend class EdgeIterator;
+                friend class Vertex;
+                friend class EdgeIterator;
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				// CONSTRUCTORS -----------------------------------------------
+                // CONSTRUCTORS -----------------------------------------------
 
-				ConstEdgeIterator( void )
-				{
-					// empty
-				}
+                ConstEdgeIterator( void )
+                {
+                    // empty
+                }
 
-				ConstEdgeIterator
-					( typename EdgeSet::const_iterator const & iter )
-				{
-					this->iter = iter;
-				}
+                ConstEdgeIterator
+                    ( typename EdgeSet::const_iterator const & iter )
+                {
+                    this->iter = iter;
+                }
 
-				// COPY CONSTRUCTOR -------------------------------------------
+                // COPY CONSTRUCTOR -------------------------------------------
 
-				ConstEdgeIterator( ConstEdgeIterator const & other )
-				{
-					this->iter = other.iter;
-				}
+                ConstEdgeIterator( ConstEdgeIterator const & other )
+                {
+                    this->iter = other.iter;
+                }
 
-				ConstEdgeIterator( EdgeIterator const & other )
-				{
-					this->iter = other.iter;
-				}
+                ConstEdgeIterator( EdgeIterator const & other )
+                {
+                    this->iter = other.iter;
+                }
 
-				// MOVE CONSTRUCTOR -------------------------------------------
+                // MOVE CONSTRUCTOR -------------------------------------------
 
-				ConstEdgeIterator( ConstEdgeIterator && other )
-				{
-					this->iter = other.iter;
-				}
+                ConstEdgeIterator( ConstEdgeIterator && other )
+                {
+                    this->iter = other.iter;
+                }
 
-				ConstEdgeIterator( EdgeIterator && other )
-				{
-					this->iter = other.iter;
-				}
+                ConstEdgeIterator( EdgeIterator && other )
+                {
+                    this->iter = other.iter;
+                }
 
-				// DESTRUCTOR -------------------------------------------------
+                // DESTRUCTOR -------------------------------------------------
 
-				~ConstEdgeIterator( void )
-				{
-					// empty
-				}
+                ~ConstEdgeIterator( void )
+                {
+                    // empty
+                }
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				// COPY ASSIGNMENT --------------------------------------------
+                // COPY ASSIGNMENT --------------------------------------------
 
-				ConstEdgeIterator const & operator =
-					( ConstEdgeIterator const & other )
-				{
-					this->iter = other.iter;
+                ConstEdgeIterator const & operator =
+                    ( ConstEdgeIterator const & other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				ConstEdgeIterator const & operator =
-					( EdgeIterator const & other )
-				{
-					this->iter = other.iter;
+                ConstEdgeIterator const & operator =
+                    ( EdgeIterator const & other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				// MOVE ASSIGNMENT --------------------------------------------
+                // MOVE ASSIGNMENT --------------------------------------------
 
-				ConstEdgeIterator const & operator =
-					( ConstEdgeIterator && other )
-				{
-					this->iter = other.iter;
+                ConstEdgeIterator const & operator =
+                    ( ConstEdgeIterator && other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				ConstEdgeIterator const & operator =
-					( EdgeIterator && other )
-				{
-					this->iter = other.iter;
+                ConstEdgeIterator const & operator =
+                    ( EdgeIterator && other )
+                {
+                    this->iter = other.iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				// EQUALITY ---------------------------------------------------
+                // EQUALITY ---------------------------------------------------
 
-				bool const operator ==
-					( ConstEdgeIterator const & other ) const
-				{
-					return this->iter == other.iter;
-				}
+                bool const operator ==
+                    ( ConstEdgeIterator const & other ) const
+                {
+                    return this->iter == other.iter;
+                }
 
-				bool const operator ==
-					( EdgeIterator const & other ) const
-				{
-					return this->iter == other.iter;
-				}
+                bool const operator ==
+                    ( EdgeIterator const & other ) const
+                {
+                    return this->iter == other.iter;
+                }
 
-				// INEQUALITY -------------------------------------------------
+                // INEQUALITY -------------------------------------------------
 
-				bool const operator !=
-					( ConstEdgeIterator const & other ) const
-				{
-					return this->iter != other.iter;
-				}
+                bool const operator !=
+                    ( ConstEdgeIterator const & other ) const
+                {
+                    return this->iter != other.iter;
+                }
 
-				bool const operator !=
-					( EdgeIterator const & other ) const
-				{
-					return this->iter != other.iter;
-				}
+                bool const operator !=
+                    ( EdgeIterator const & other ) const
+                {
+                    return this->iter != other.iter;
+                }
 
-				// INDIRECTION ------------------------------------------------
+                // INDIRECTION ------------------------------------------------
 
-				Edge const & operator * ( void ) const
-				{
-					return **iter;
-				}
+                Edge const & operator * ( void ) const
+                {
+                    return **iter;
+                }
 
-				// STRUCTURE DEREFERENCE --------------------------------------
+                // STRUCTURE DEREFERENCE --------------------------------------
 
-				Edge const * operator -> ( void ) const
-				{
-					return *iter;
-				}
+                Edge const * operator -> ( void ) const
+                {
+                    return *iter;
+                }
 
-				// INCREMENT --------------------------------------------------
+                // INCREMENT --------------------------------------------------
 
-				ConstEdgeIterator const & operator ++ ( void ) // prefix
-				{
-					++iter;
+                ConstEdgeIterator const & operator ++ ( void ) // prefix
+                {
+                    ++iter;
 
-					return *this;
-				}
+                    return *this;
+                }
 
-				ConstEdgeIterator const & operator ++ ( int ) // postfix
-				{
-					ConstEdgeIterator copy( *this );
+                ConstEdgeIterator const & operator ++ ( int ) // postfix
+                {
+                    ConstEdgeIterator copy( *this );
 
-					++iter;
+                    ++iter;
 
-					return copy;
-				}
+                    return copy;
+                }
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				private:
+                private:
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-				// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-				typename EdgeSet::const_iterator iter;
+                typename EdgeSet::const_iterator iter;
 
-				// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			};
+                // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            };
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			Vertex( void ) : BaseVertex()
-			{
-				// empty
-			}
+            Vertex( void ) : BaseVertex()
+            {
+                // empty
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			Vertex( Vertex const & other ) : BaseVertex( other )
-			{
-				this->edges = other.edges;
-			}
+            Vertex( Vertex const & other ) : BaseVertex( other )
+            {
+                this->edges = other.edges;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			Vertex( Vertex && other ) : BaseVertex( other )
-			{
-				this->edges = other.edges;
-			}
+            Vertex( Vertex && other ) : BaseVertex( other )
+            {
+                this->edges = other.edges;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~Vertex( void )
-			{
-				// empty
-			}
+            ~Vertex( void )
+            {
+                // empty
+            }
 
-			// BEGIN EDGES ----------------------------------------------------
+            // BEGIN EDGES ----------------------------------------------------
 
-			EdgeIterator beginEdges( void )
-			{
-				return EdgeIterator( edges.begin() );
-			}
+            EdgeIterator beginEdges( void )
+            {
+                return EdgeIterator( edges.begin() );
+            }
 
-			ConstEdgeIterator cbeginEdges( void ) const
-			{
-				return ConstEdgeIterator( edges.begin() );
-			}
+            ConstEdgeIterator cbeginEdges( void ) const
+            {
+                return ConstEdgeIterator( edges.begin() );
+            }
 
-			// END EDGES ------------------------------------------------------
+            // END EDGES ------------------------------------------------------
 
-			EdgeIterator endEdges( void )
-			{
-				return EdgeIterator( edges.end() );
-			}
+            EdgeIterator endEdges( void )
+            {
+                return EdgeIterator( edges.end() );
+            }
 
-			ConstEdgeIterator cendEdges( void ) const
-			{
-				return ConstEdgeIterator( edges.end() );
-			}
+            ConstEdgeIterator cendEdges( void ) const
+            {
+                return ConstEdgeIterator( edges.end() );
+            }
 
-			// FIND EDGES -----------------------------------------------------
+            // FIND EDGES -----------------------------------------------------
 
-			std::pair< EdgeIterator, EdgeIterator >
-				findEdges( VertexIterator iter )
-			{
-				// Construct edge to search for
+            std::pair< EdgeIterator, EdgeIterator >
+                findEdges( VertexIterator iter )
+            {
+                // Construct edge to search for
 
-				Edge edge;
-				edge.setTargetVertex( iter );
+                Edge edge;
+                edge.setTargetVertex( iter );
 
-				// Search for matching edges
+                // Search for matching edges
 
-				std::pair< typename EdgeSet::const_iterator,
-						   typename EdgeSet::const_iterator > pair =
-					edges.equal_range( &edge );
+                std::pair< typename EdgeSet::const_iterator,
+                           typename EdgeSet::const_iterator > pair =
+                    edges.equal_range( &edge );
 
-				// Return pair of iterators to range
+                // Return pair of iterators to range
 
-				return std::pair< EdgeIterator, EdgeIterator >
-				(
-					EdgeIterator( pair.first ),
-					EdgeIterator( pair.second )
-				);
-			}
+                return std::pair< EdgeIterator, EdgeIterator >
+                (
+                    EdgeIterator( pair.first ),
+                    EdgeIterator( pair.second )
+                );
+            }
 
-			std::pair< ConstEdgeIterator, ConstEdgeIterator >
-				findEdges( ConstVertexIterator iter ) const
-			{
-				// Construct edge to search for
-				
-				Edge edge;
-				edge.setTargetVertex( VertexIterator( iter.iter ) );
+            std::pair< ConstEdgeIterator, ConstEdgeIterator >
+                findEdges( ConstVertexIterator iter ) const
+            {
+                // Construct edge to search for
+                
+                Edge edge;
+                edge.setTargetVertex( VertexIterator( iter.iter ) );
 
-				// Search for matching edges
+                // Search for matching edges
 
-				std::pair< typename EdgeSet::const_iterator,
-						   typename EdgeSet::const_iterator > pair =
-					edges.equal_range( &edge );
-				
-				// Return pair of iterators to range
+                std::pair< typename EdgeSet::const_iterator,
+                           typename EdgeSet::const_iterator > pair =
+                    edges.equal_range( &edge );
+                
+                // Return pair of iterators to range
 
-				return std::pair< ConstEdgeIterator, ConstEdgeIterator >
-				(
-					ConstEdgeIterator( pair.first ),
-					ConstEdgeIterator( pair.second )
-				);
-			}
+                return std::pair< ConstEdgeIterator, ConstEdgeIterator >
+                (
+                    ConstEdgeIterator( pair.first ),
+                    ConstEdgeIterator( pair.second )
+                );
+            }
 
-			// GET EDGE COUNT -------------------------------------------------
+            // GET EDGE COUNT -------------------------------------------------
 
-			size_type const getEdgeCount( void ) const
-			{
-				return edges.size();
-			}
+            size_type const getEdgeCount( void ) const
+            {
+                return edges.size();
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			Vertex const & operator = ( Vertex const & other )
-			{
-				BaseVertex::operator=( other );
+            Vertex const & operator = ( Vertex const & other )
+            {
+                BaseVertex::operator=( other );
 
-				this->edges = other.edges;
+                this->edges = other.edges;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			Vertex const & operator = ( Vertex && other )
-			{
-				BaseVertex::operator=( other );
+            Vertex const & operator = ( Vertex && other )
+            {
+                BaseVertex::operator=( other );
 
-				this->edges = other.edges;
+                this->edges = other.edges;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// ADD EDGE -------------------------------------------------------
+            // ADD EDGE -------------------------------------------------------
 
-			EdgeIterator addEdge( Edge * edge )
-			{
-				return EdgeIterator( edges.insert( edge ) );
-			}
+            EdgeIterator addEdge( Edge * edge )
+            {
+                return EdgeIterator( edges.insert( edge ) );
+            }
 
-			// REMOVE EDGE ----------------------------------------------------
+            // REMOVE EDGE ----------------------------------------------------
 
-			EdgeIterator removeEdge( EdgeIterator position )
-			{
-				return EdgeIterator( edges.erase( position.iter ) );
-			}
+            EdgeIterator removeEdge( EdgeIterator position )
+            {
+                return EdgeIterator( edges.erase( position.iter ) );
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			EdgeSet edges;
+            EdgeSet edges;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		// EDGE CLASS ---------------------------------------------------------
+        // EDGE CLASS ---------------------------------------------------------
 
-		class Edge : public BaseEdge
-		{
-			public:
+        class Edge : public BaseEdge
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class Vertex;
-			friend class PolygonGraph< Traits >;
+            friend class Vertex;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// ITERATORS ------------------------------------------------------
+            // ITERATORS ------------------------------------------------------
 
-			typedef typename Vertex::EdgeIterator		EdgeIterator;
-			typedef typename Vertex::ConstEdgeIterator	ConstEdgeIterator;
+            typedef typename Vertex::EdgeIterator        EdgeIterator;
+            typedef typename Vertex::ConstEdgeIterator    ConstEdgeIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			Edge( void ) : BaseEdge()
-			{
-				// empty
-			}
+            Edge( void ) : BaseEdge()
+            {
+                // empty
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			Edge( Edge const & other ) : BaseEdge( other )
-			{
-				this->targetVertex	= other.targetVertex;
-				this->nextEdge		= other.nextEdge;
-				this->previousEdge	= other.previousEdge;
-				this->polygon		= other.polygon;
-			}
+            Edge( Edge const & other ) : BaseEdge( other )
+            {
+                this->targetVertex    = other.targetVertex;
+                this->nextEdge        = other.nextEdge;
+                this->previousEdge    = other.previousEdge;
+                this->polygon        = other.polygon;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			Edge( Edge && other ) : BaseEdge( other )
-			{
-				this->targetVertex	= other.targetVertex;
-				this->nextEdge		= other.nextEdge;
-				this->previousEdge	= other.previousEdge;
-				this->polygon		= other.polygon;
-			}
+            Edge( Edge && other ) : BaseEdge( other )
+            {
+                this->targetVertex    = other.targetVertex;
+                this->nextEdge        = other.nextEdge;
+                this->previousEdge    = other.previousEdge;
+                this->polygon        = other.polygon;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~Edge( void )
-			{
-				// empty
-			}
+            ~Edge( void )
+            {
+                // empty
+            }
 
-			// GET TARGET VERTEX ----------------------------------------------
+            // GET TARGET VERTEX ----------------------------------------------
 
-			VertexIterator getTargetVertex( void )
-			{
-				return targetVertex;
-			}
+            VertexIterator getTargetVertex( void )
+            {
+                return targetVertex;
+            }
 
-			ConstVertexIterator getTargetVertex( void ) const
-			{
-				return targetVertex;
-			}
+            ConstVertexIterator getTargetVertex( void ) const
+            {
+                return targetVertex;
+            }
 
-			// GET NEXT EDGE --------------------------------------------------
+            // GET NEXT EDGE --------------------------------------------------
 
-			Edge * getNextEdge( void )
-			{
-				return &( *nextEdge );
-			}
+            Edge * getNextEdge( void )
+            {
+                return &( *nextEdge );
+            }
 
-			Edge const * getNextEdge( void ) const
-			{
-				return &( *nextEdge );
-			}
+            Edge const * getNextEdge( void ) const
+            {
+                return &( *nextEdge );
+            }
 
-			// GET PREVIOUS EDGE ----------------------------------------------
+            // GET PREVIOUS EDGE ----------------------------------------------
 
-			Edge * getPreviousEdge( void )
-			{
-				return &( *previousEdge );
-			}
+            Edge * getPreviousEdge( void )
+            {
+                return &( *previousEdge );
+            }
 
-			Edge const * getPreviousEdge( void ) const
-			{
-				return &( *previousEdge );
-			}
+            Edge const * getPreviousEdge( void ) const
+            {
+                return &( *previousEdge );
+            }
 
-			// GET POLYGON ----------------------------------------------------
+            // GET POLYGON ----------------------------------------------------
 
-			PolygonIterator getPolygon( void )
-			{
-				return polygon;
-			}
+            PolygonIterator getPolygon( void )
+            {
+                return polygon;
+            }
 
-			ConstPolygonIterator getPolygon( void ) const
-			{
-				return polygon;
-			}
+            ConstPolygonIterator getPolygon( void ) const
+            {
+                return polygon;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			Edge const & operator = ( Edge const & other )
-			{
-				BaseEdge::operator=( other );
-				
-				this->targetVertex	= other.targetVertex;
-				this->nextEdge		= other.nextEdge;
-				this->previousEdge	= other.previousEdge;
-				this->polygon		= other.polygon;
+            Edge const & operator = ( Edge const & other )
+            {
+                BaseEdge::operator=( other );
+                
+                this->targetVertex    = other.targetVertex;
+                this->nextEdge        = other.nextEdge;
+                this->previousEdge    = other.previousEdge;
+                this->polygon        = other.polygon;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			Edge const & operator = ( Edge && other )
-			{
-				BaseEdge::operator=( other );
-				
-				this->targetVertex	= other.targetVertex;
-				this->nextEdge		= other.nextEdge;
-				this->previousEdge	= other.previousEdge;
-				this->polygon		= other.polygon;
+            Edge const & operator = ( Edge && other )
+            {
+                BaseEdge::operator=( other );
+                
+                this->targetVertex    = other.targetVertex;
+                this->nextEdge        = other.nextEdge;
+                this->previousEdge    = other.previousEdge;
+                this->polygon        = other.polygon;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// EQUALITY -------------------------------------------------------
+            // EQUALITY -------------------------------------------------------
 
-			bool const operator == ( Edge const & other ) const
-			{
-				return this->targetVertex	== other.targetVertex	&&
-					   this->nextEdge		== other.nextEdge		&&
-					   this->previousEdge	== other.previousEdge	&&
-					   this->polygon		== other.polygon;
-			}
+            bool const operator == ( Edge const & other ) const
+            {
+                return this->targetVertex    == other.targetVertex    &&
+                       this->nextEdge        == other.nextEdge        &&
+                       this->previousEdge    == other.previousEdge    &&
+                       this->polygon        == other.polygon;
+            }
 
-			// INEQUALITY -----------------------------------------------------
+            // INEQUALITY -----------------------------------------------------
 
-			bool const operator != ( Edge const & other ) const
-			{
-				return !( *this == other );
-			}
+            bool const operator != ( Edge const & other ) const
+            {
+                return !( *this == other );
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			
-			// SET TARGET VERTEX ----------------------------------------------
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            
+            // SET TARGET VERTEX ----------------------------------------------
 
-			void setTargetVertex( VertexIterator vertex )
-			{
-				targetVertex = vertex;
-			}
+            void setTargetVertex( VertexIterator vertex )
+            {
+                targetVertex = vertex;
+            }
 
-			// SET NEXT EDGE --------------------------------------------------
+            // SET NEXT EDGE --------------------------------------------------
 
-			void setNextEdge( EdgeIterator edge )
-			{
-				nextEdge = edge;
-			}
-			
-			// SET PREVIOUS EDGE ----------------------------------------------
+            void setNextEdge( EdgeIterator edge )
+            {
+                nextEdge = edge;
+            }
+            
+            // SET PREVIOUS EDGE ----------------------------------------------
 
-			void setPreviousEdge( EdgeIterator edge )
-			{
-				previousEdge = edge;
-			}
+            void setPreviousEdge( EdgeIterator edge )
+            {
+                previousEdge = edge;
+            }
 
-			// SET POLYGON ----------------------------------------------------
+            // SET POLYGON ----------------------------------------------------
 
-			void setPolygon( PolygonIterator polygon )
-			{
-				this->polygon = polygon;
-			}
+            void setPolygon( PolygonIterator polygon )
+            {
+                this->polygon = polygon;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			VertexIterator	targetVertex;
-			EdgeIterator	nextEdge;
-			EdgeIterator	previousEdge;
-			PolygonIterator	polygon;
+            VertexIterator    targetVertex;
+            EdgeIterator    nextEdge;
+            EdgeIterator    previousEdge;
+            PolygonIterator    polygon;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		// POLYGON CLASS ------------------------------------------------------
+        // POLYGON CLASS ------------------------------------------------------
 
-		class Polygon : public BasePolygon
-		{
-			public:
+        class Polygon : public BasePolygon
+        {
+            public:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // FRIENDS ++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			friend class PolygonGraph< Traits >;
+            friend class PolygonGraph< Traits >;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC TYPES +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// ITERATORS ------------------------------------------------------
+            // ITERATORS ------------------------------------------------------
 
-			typedef typename Vertex::EdgeIterator		EdgeIterator;
-			typedef typename Vertex::ConstEdgeIterator	ConstEdgeIterator;
+            typedef typename Vertex::EdgeIterator        EdgeIterator;
+            typedef typename Vertex::ConstEdgeIterator    ConstEdgeIterator;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// CONSTRUCTORS ---------------------------------------------------
+            // CONSTRUCTORS ---------------------------------------------------
 
-			Polygon( void ) : BasePolygon()
-			{
-				// empty
-			}
+            Polygon( void ) : BasePolygon()
+            {
+                // empty
+            }
 
-			// COPY CONSTRUCTOR -----------------------------------------------
+            // COPY CONSTRUCTOR -----------------------------------------------
 
-			Polygon( Polygon const & other ) : BasePolygon( other )
-			{
-				this->startEdge = other.startEdge;
-			}
+            Polygon( Polygon const & other ) : BasePolygon( other )
+            {
+                this->startEdge = other.startEdge;
+            }
 
-			// MOVE CONSTRUCTOR -----------------------------------------------
+            // MOVE CONSTRUCTOR -----------------------------------------------
 
-			Polygon( Polygon && other ) : BasePolygon( other )
-			{
-				this->startEdge = other.startEdge;
-			}
+            Polygon( Polygon && other ) : BasePolygon( other )
+            {
+                this->startEdge = other.startEdge;
+            }
 
-			// DESTRUCTOR -----------------------------------------------------
+            // DESTRUCTOR -----------------------------------------------------
 
-			~Polygon( void )
-			{
-				// empty
-			}
+            ~Polygon( void )
+            {
+                // empty
+            }
 
-			// GET START EDGE -------------------------------------------------
+            // GET START EDGE -------------------------------------------------
 
-			Edge * getStartEdge( void )
-			{
-				return &( *startEdge );
-			}
+            Edge * getStartEdge( void )
+            {
+                return &( *startEdge );
+            }
 
-			Edge const * getStartEdge( void ) const
-			{
-				return &( *startEdge );
-			}
+            Edge const * getStartEdge( void ) const
+            {
+                return &( *startEdge );
+            }
 
-			// GET EDGE COUNT -------------------------------------------------
+            // GET EDGE COUNT -------------------------------------------------
 
-			size_type const getEdgeCount( void ) const
-			{
-				Edge * startEdge = &( *startEdge );
-				Edge * currentEdge = startEdge;
-				size_type edgeCount = 0;
+            size_type const getEdgeCount( void ) const
+            {
+                Edge * startEdge = &( *startEdge );
+                Edge * currentEdge = startEdge;
+                size_type edgeCount = 0;
 
-				do
-				{
-					++edgeCount;
-					currentEdge = currentEdge->getNextEdge();
-				}
-				while( currentEdge != startEdge );
+                do
+                {
+                    ++edgeCount;
+                    currentEdge = currentEdge->getNextEdge();
+                }
+                while( currentEdge != startEdge );
 
-				return edgeCount;
-			}
+                return edgeCount;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// COPY ASSIGNMENT ------------------------------------------------
+            // COPY ASSIGNMENT ------------------------------------------------
 
-			Polygon const & operator = ( Polygon const & other )
-			{
-				BasePolygon::operator=( other );
+            Polygon const & operator = ( Polygon const & other )
+            {
+                BasePolygon::operator=( other );
 
-				this->startEdge = other.startEdge;
+                this->startEdge = other.startEdge;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// MOVE ASSIGNMENT ------------------------------------------------
+            // MOVE ASSIGNMENT ------------------------------------------------
 
-			Polygon const & operator = ( Polygon && other )
-			{
-				BasePolygon::operator=( other );
-				
-				this->startEdge = other.startEdge;
+            Polygon const & operator = ( Polygon && other )
+            {
+                BasePolygon::operator=( other );
+                
+                this->startEdge = other.startEdge;
 
-				return *this;
-			}
+                return *this;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			private:
+            private:
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE METHODS ++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			// SET START EDGE -------------------------------------------------
+            // SET START EDGE -------------------------------------------------
 
-			void setStartEdge( EdgeIterator edge )
-			{
-				this->startEdge = edge;
-			}
+            void setStartEdge( EdgeIterator edge )
+            {
+                this->startEdge = edge;
+            }
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+            // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-			EdgeIterator startEdge;
+            EdgeIterator startEdge;
 
-			// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		};
+            // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        };
 
-		// EDGE ITERATOR ------------------------------------------------------
+        // EDGE ITERATOR ------------------------------------------------------
 
-		typedef typename Vertex::EdgeIterator EdgeIterator;
-		typedef typename Vertex::ConstEdgeIterator ConstEdgeIterator;
+        typedef typename Vertex::EdgeIterator EdgeIterator;
+        typedef typename Vertex::ConstEdgeIterator ConstEdgeIterator;
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		private:
-		
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PRIVATE TYPES ++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        private:
+        
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PRIVATE TYPES ++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		// CONTAINERS ---------------------------------------------------------
+        // CONTAINERS ---------------------------------------------------------
 
-		typedef std::list< Vertex > VertexList;
-		typedef std::list< Polygon > PolygonList;
+        typedef std::list< Vertex > VertexList;
+        typedef std::list< Polygon > PolygonList;
 
-		// ITERATORS ----------------------------------------------------------
+        // ITERATORS ----------------------------------------------------------
 
-		typedef typename VertexList::iterator VertexListIterator;
-		typedef typename PolygonList::iterator PolygonListIterator;
+        typedef typename VertexList::iterator VertexListIterator;
+        typedef typename PolygonList::iterator PolygonListIterator;
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		public:
+        public:
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PUBLIC METHODS +++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		// CONSTRUCTORS -------------------------------------------------------
+        // CONSTRUCTORS -------------------------------------------------------
 
-		PolygonGraph( void )
-		{
-			vertices = new VertexList();
-			polygons = new PolygonList();
-		}
+        PolygonGraph( void )
+        {
+            vertices = new VertexList();
+            polygons = new PolygonList();
+        }
 
-		// COPY CONSTRUCTOR ---------------------------------------------------
+        // COPY CONSTRUCTOR ---------------------------------------------------
 
-		PolygonGraph( PolygonGraph< Traits > const & other )
-		{
-			class MapHash
-			{
-				public:
+        PolygonGraph( PolygonGraph< Traits > const & other )
+        {
+            class MapHash
+            {
+                public:
 
-				std::size_t const
-				operator () ( ConstVertexIterator const & it ) const
-				{
-					return &( *it );
-				}
-			};
+                std::size_t const
+                operator () ( ConstVertexIterator const & it ) const
+                {
+                    return &( *it );
+                }
+            };
 
-			typedef std::unordered_map
-			<
-				ConstVertexIterator,
-				VertexIterator,
-				MapHash
-			>
-			VertexMap;
+            typedef std::unordered_map
+            <
+                ConstVertexIterator,
+                VertexIterator,
+                MapHash
+            >
+            VertexMap;
 
-			typedef typename VertexMap::const_iterator VertexMapIter;
+            typedef typename VertexMap::const_iterator VertexMapIter;
 
-			typedef std::pair
-			<
-				ConstVertexIterator,
-				VertexIterator
-			>
-			VertexMapEntry;
+            typedef std::pair
+            <
+                ConstVertexIterator,
+                VertexIterator
+            >
+            VertexMapEntry;
 
-			// Create containers
+            // Create containers
 
-			this->vertices = new VertexList();
-			this->polygons = new PolygonList();
+            this->vertices = new VertexList();
+            this->polygons = new PolygonList();
 
-			// Create vertex map
+            // Create vertex map
 
-			VertexMap vertexMap;
+            VertexMap vertexMap;
 
-			// Add all vertices from other graph
+            // Add all vertices from other graph
 
-			ConstVertexIterator otherVertIt = other.cbeginVertices();
-			ConstVertexIterator otherVertItEnd = other.cendVertices();
-			VertexMapEntry mapEntry;
-			VertexIterator vertIt;
+            ConstVertexIterator otherVertIt = other.cbeginVertices();
+            ConstVertexIterator otherVertItEnd = other.cendVertices();
+            VertexMapEntry mapEntry;
+            VertexIterator vertIt;
 
-			while( otherVertIt != otherVertItEnd )
-			{
-				vertIt = addVertex( *otherVertIt );
-				mapEntry.first = otherVertIt;
-				mapEntry.second = vertIt;
-				vertexMap.insert( mapEntry );
-				++otherVertIt;
-			}
+            while( otherVertIt != otherVertItEnd )
+            {
+                vertIt = addVertex( *otherVertIt );
+                mapEntry.first = otherVertIt;
+                mapEntry.second = vertIt;
+                vertexMap.insert( mapEntry );
+                ++otherVertIt;
+            }
 
-			// Add all polygons from other graph
+            // Add all polygons from other graph
 
-			ConstPolygonIterator otherPolyIt = other.cbeginPolygons();
-			ConstPolygonIterator otherPolyItEnd = other.cendPolygons();
-			Edge const * otherCurrentEdge = nullptr;
-			Edge const * otherStartEdge = nullptr;
-			std::list< VertexIterator > vertices;
-			Edge * currentEdge = nullptr;
-			VertexMapIter vertexMapIter;
-			PolygonIterator polyIter;
+            ConstPolygonIterator otherPolyIt = other.cbeginPolygons();
+            ConstPolygonIterator otherPolyItEnd = other.cendPolygons();
+            Edge const * otherCurrentEdge = nullptr;
+            Edge const * otherStartEdge = nullptr;
+            std::list< VertexIterator > vertices;
+            Edge * currentEdge = nullptr;
+            VertexMapIter vertexMapIter;
+            PolygonIterator polyIter;
 
-			while( otherPolyIt != otherPolyItEnd )
-			{
-				vertices.clear();
+            while( otherPolyIt != otherPolyItEnd )
+            {
+                vertices.clear();
 
-				// Add mapped vertices of current polygon to list
+                // Add mapped vertices of current polygon to list
 
-				otherCurrentEdge =
-					otherPolyIt->getStartEdge()->getPreviousEdge();
-				otherStartEdge = otherCurrentEdge;
+                otherCurrentEdge =
+                    otherPolyIt->getStartEdge()->getPreviousEdge();
+                otherStartEdge = otherCurrentEdge;
 
-				do
-				{
-					// Find mapped vertex for current edge
+                do
+                {
+                    // Find mapped vertex for current edge
 
-					vertexMapIter = 
-						vertexMap.find( otherCurrentEdge->getTargetVertex() );
+                    vertexMapIter = 
+                        vertexMap.find( otherCurrentEdge->getTargetVertex() );
 
-					// Add mapped vertex to list
+                    // Add mapped vertex to list
 
-					vertices.push_back( vertexMapIter->second );
+                    vertices.push_back( vertexMapIter->second );
 
-					// Advance to next edge
+                    // Advance to next edge
 
-					otherCurrentEdge = otherCurrentEdge->getNextEdge();
-				}
-				while( otherCurrentEdge != otherStartEdge );
+                    otherCurrentEdge = otherCurrentEdge->getNextEdge();
+                }
+                while( otherCurrentEdge != otherStartEdge );
 
-				// Add polygon to graph
+                // Add polygon to graph
 
-				polyIter = addPolygon( vertices, *otherPolyIt );
+                polyIter = addPolygon( vertices, *otherPolyIt );
 
-				// Copy edge data to new polygon
+                // Copy edge data to new polygon
 
-				otherCurrentEdge = otherCurrentEdge->getNextEdge();
-				otherStartEdge = otherCurrentEdge;
-				currentEdge = polyIter->getStartEdge();
+                otherCurrentEdge = otherCurrentEdge->getNextEdge();
+                otherStartEdge = otherCurrentEdge;
+                currentEdge = polyIter->getStartEdge();
 
-				do
-				{
-					// Assign data from source edge to new edge
+                do
+                {
+                    // Assign data from source edge to new edge
 
-					static_cast< BaseEdge & >( *currentEdge ) =
-						static_cast< BaseEdge & >( otherCurrentEdge );
-					
-					// Advance edge iterators
+                    static_cast< BaseEdge & >( *currentEdge ) =
+                        static_cast< BaseEdge & >( otherCurrentEdge );
+                    
+                    // Advance edge iterators
 
-					otherCurrentEdge = otherCurrentEdge->getNextEdge();
-					currentEdge = currentEdge->getNextEdge();
-				}
-				while( otherCurrentEdge != otherStartEdge );
+                    otherCurrentEdge = otherCurrentEdge->getNextEdge();
+                    currentEdge = currentEdge->getNextEdge();
+                }
+                while( otherCurrentEdge != otherStartEdge );
 
-				// Advance to next polygon
+                // Advance to next polygon
 
-				++otherPolyIt;
-			}
-		}
+                ++otherPolyIt;
+            }
+        }
 
-		// MOVE CONSTRUCTOR ---------------------------------------------------
+        // MOVE CONSTRUCTOR ---------------------------------------------------
 
-		PolygonGraph( PolygonGraph && other )
-		{
-			this->vertices = other.vertices;
-			this->polygons = other.polygons;
+        PolygonGraph( PolygonGraph && other )
+        {
+            this->vertices = other.vertices;
+            this->polygons = other.polygons;
 
-			other.polygons = nullptr;
-			other.vertices = nullptr;
-		}
+            other.polygons = nullptr;
+            other.vertices = nullptr;
+        }
 
-		// DESTRUCTOR ---------------------------------------------------------
+        // DESTRUCTOR ---------------------------------------------------------
 
-		~PolygonGraph( void )
-		{
-			clear();
-			
-			delete vertices;
-			delete polygons;
+        ~PolygonGraph( void )
+        {
+            clear();
+            
+            delete vertices;
+            delete polygons;
 
-			vertices = nullptr;
-			polygons = nullptr;
-		}
+            vertices = nullptr;
+            polygons = nullptr;
+        }
 
-		// ADD VERTEX ---------------------------------------------------------
+        // ADD VERTEX ---------------------------------------------------------
 
-		VertexIterator addVertex( void )
-		{
-			return addVertex( BaseVertex() );
-		}
+        VertexIterator addVertex( void )
+        {
+            return addVertex( BaseVertex() );
+        }
 
-		VertexIterator addVertex( BaseVertex const & baseVertex )
-		{
-			vertices->push_back( Vertex() );
-			VertexListIterator it = vertices->end(); --it;
-			static_cast< BaseVertex & >( *it ) = baseVertex;
-			return VertexIterator( it );
-		}
+        VertexIterator addVertex( BaseVertex const & baseVertex )
+        {
+            vertices->push_back( Vertex() );
+            VertexListIterator it = vertices->end(); --it;
+            static_cast< BaseVertex & >( *it ) = baseVertex;
+            return VertexIterator( it );
+        }
 
-		// REMOVE VERTEX ------------------------------------------------------
+        // REMOVE VERTEX ------------------------------------------------------
 
-		VertexIterator removeVertex( VertexIterator vertex )
-		{
-			typedef std::list< PolygonIterator > PolyIterList;
-			typedef typename PolyIterList::iterator PolyIterIt;
-			
-			// Get all dependent polygons
+        VertexIterator removeVertex( VertexIterator vertex )
+        {
+            typedef std::list< PolygonIterator > PolyIterList;
+            typedef typename PolyIterList::iterator PolyIterIt;
+            
+            // Get all dependent polygons
 
-			EdgeIterator edgeItEnd = vertex->endEdges();
-			EdgeIterator edgeIt = vertex->beginEdges();
-			PolyIterList dependentPolygons;
+            EdgeIterator edgeItEnd = vertex->endEdges();
+            EdgeIterator edgeIt = vertex->beginEdges();
+            PolyIterList dependentPolygons;
 
-			while( edgeIt != edgeItEnd )
-			{
-				dependentPolygons.push_back( edgeIt->getPolygon() );
-				++edgeIt;
-			}
+            while( edgeIt != edgeItEnd )
+            {
+                dependentPolygons.push_back( edgeIt->getPolygon() );
+                ++edgeIt;
+            }
 
-			// Remove all dependent polygons
+            // Remove all dependent polygons
 
-			PolyIterIt polyIterItEnd = dependentPolygons.end();
-			PolyIterIt polyIterIt = dependentPolygons.begin();
+            PolyIterIt polyIterItEnd = dependentPolygons.end();
+            PolyIterIt polyIterIt = dependentPolygons.begin();
 
-			while( polyIterIt != polyIterItEnd )
-			{
-				removePolygon( *polyIterIt );
-				++polyIterIt;
-			}
+            while( polyIterIt != polyIterItEnd )
+            {
+                removePolygon( *polyIterIt );
+                ++polyIterIt;
+            }
 
-			// Remove vertex and return next iterator
+            // Remove vertex and return next iterator
 
-			return VertexIterator( vertices->erase( vertex.iter ) );
-		}
+            return VertexIterator( vertices->erase( vertex.iter ) );
+        }
 
-		// REMOVE ISOLATED VERTICES -------------------------------------------
+        // REMOVE ISOLATED VERTICES -------------------------------------------
 
-		size_type const removeIsolatedVertices( void )
-		{
-			// Iterate over vertex list and remove any without edges
+        size_type const removeIsolatedVertices( void )
+        {
+            // Iterate over vertex list and remove any without edges
 
-			VertexListIterator vertexItEnd = vertices->end();
-			VertexListIterator vertexIt = vertices->begin();
-			size_type removeCount = 0;
+            VertexListIterator vertexItEnd = vertices->end();
+            VertexListIterator vertexIt = vertices->begin();
+            size_type removeCount = 0;
 
-			while( vertexIt != vertexItEnd )
-			{
-				if( vertexIt->getEdgeCount() == 0 )
-				{
-					vertexIt = vertices->erase( vertexIt );
-					++removeCount;
-				}
-				else
-				{
-					++vertexIt;
-				}
-			}
+            while( vertexIt != vertexItEnd )
+            {
+                if( vertexIt->getEdgeCount() == 0 )
+                {
+                    vertexIt = vertices->erase( vertexIt );
+                    ++removeCount;
+                }
+                else
+                {
+                    ++vertexIt;
+                }
+            }
 
-			return removeCount;
-		}
+            return removeCount;
+        }
 
-		// GET VERTEX COUNT ---------------------------------------------------
+        // GET VERTEX COUNT ---------------------------------------------------
 
-		size_type const getVertexCount( void ) const
-		{
-			return vertices->size();
-		}
+        size_type const getVertexCount( void ) const
+        {
+            return vertices->size();
+        }
 
-		// ADD POLYGON --------------------------------------------------------
+        // ADD POLYGON --------------------------------------------------------
 
-		PolygonIterator addPolygon
-		(
-			std::list< VertexIterator > const & vertices
-		)
-		{
-			return addPolygon( vertices, BasePolygon() );
-		}
+        PolygonIterator addPolygon
+        (
+            std::list< VertexIterator > const & vertices
+        )
+        {
+            return addPolygon( vertices, BasePolygon() );
+        }
 
-		PolygonIterator addPolygon
-		(
-			std::list< VertexIterator > const & vertices,
-			BasePolygon const & basePolygon
-		)
-		{
-			typedef typename std::list< VertexIterator >::const_iterator
-				VertIterIt;
-			
-			// Ensure polygon has at least three vertices
+        PolygonIterator addPolygon
+        (
+            std::list< VertexIterator > const & vertices,
+            BasePolygon const & basePolygon
+        )
+        {
+            typedef typename std::list< VertexIterator >::const_iterator
+                VertIterIt;
+            
+            // Ensure polygon has at least three vertices
 
-			if( vertices.size() < 3 )
-			{
-				return endPolygons();
-			}
-			
-			// Create new polygon
+            if( vertices.size() < 3 )
+            {
+                return endPolygons();
+            }
+            
+            // Create new polygon
 
-			Polygon polygon;
-			static_cast< BasePolygon & >( polygon ) = basePolygon;
-			polygons->push_back( polygon );
-			PolygonListIterator polyListIt = polygons->end();
-			--polyListIt;
-			PolygonIterator polygonIt( polyListIt );
+            Polygon polygon;
+            static_cast< BasePolygon & >( polygon ) = basePolygon;
+            polygons->push_back( polygon );
+            PolygonListIterator polyListIt = polygons->end();
+            --polyListIt;
+            PolygonIterator polygonIt( polyListIt );
 
-			// Create and link edges
+            // Create and link edges
 
-			VertIterIt firstVertex = vertices.cbegin();
-			VertIterIt secondVertex = firstVertex; ++secondVertex;
-			VertIterIt endVertex = vertices.cend();
+            VertIterIt firstVertex = vertices.cbegin();
+            VertIterIt secondVertex = firstVertex; ++secondVertex;
+            VertIterIt endVertex = vertices.cend();
 
-			Edge * edge = new Edge();
-			edge->setPolygon( polygonIt );
-			edge->setTargetVertex( *secondVertex );
+            Edge * edge = new Edge();
+            edge->setPolygon( polygonIt );
+            edge->setTargetVertex( *secondVertex );
 
-			EdgeIterator startEdge = ( *firstVertex )->addEdge( edge );
-			EdgeIterator previousEdge = startEdge;
-			EdgeIterator currentEdge;
-			
-			++firstVertex;
-			++secondVertex;
+            EdgeIterator startEdge = ( *firstVertex )->addEdge( edge );
+            EdgeIterator previousEdge = startEdge;
+            EdgeIterator currentEdge;
+            
+            ++firstVertex;
+            ++secondVertex;
 
-			while( secondVertex != endVertex )
-			{
-				edge = new Edge( *edge );
-				edge->setTargetVertex( *secondVertex );
-				currentEdge = ( *firstVertex )->addEdge( edge );
+            while( secondVertex != endVertex )
+            {
+                edge = new Edge( *edge );
+                edge->setTargetVertex( *secondVertex );
+                currentEdge = ( *firstVertex )->addEdge( edge );
 
-				previousEdge->setNextEdge( currentEdge );
-				currentEdge->setPreviousEdge( previousEdge );
-				previousEdge = currentEdge;
+                previousEdge->setNextEdge( currentEdge );
+                currentEdge->setPreviousEdge( previousEdge );
+                previousEdge = currentEdge;
 
-				++firstVertex;
-				++secondVertex;
-			}
+                ++firstVertex;
+                ++secondVertex;
+            }
 
-			secondVertex = vertices.cbegin();
-			edge = new Edge( *edge );
-			edge->setTargetVertex( *secondVertex );
+            secondVertex = vertices.cbegin();
+            edge = new Edge( *edge );
+            edge->setTargetVertex( *secondVertex );
 
-			currentEdge = ( *firstVertex )->addEdge( edge );
+            currentEdge = ( *firstVertex )->addEdge( edge );
 
-			previousEdge->setNextEdge( currentEdge );
-			currentEdge->setPreviousEdge( previousEdge );
-			currentEdge->setNextEdge( startEdge );
-			startEdge->setPreviousEdge( currentEdge );
+            previousEdge->setNextEdge( currentEdge );
+            currentEdge->setPreviousEdge( previousEdge );
+            currentEdge->setNextEdge( startEdge );
+            startEdge->setPreviousEdge( currentEdge );
 
-			// Set start edge of polygon
+            // Set start edge of polygon
 
-			polygonIt->setStartEdge( startEdge );
+            polygonIt->setStartEdge( startEdge );
 
-			return polygonIt;
-		}
+            return polygonIt;
+        }
 
-		// REMOVE POLYGON -----------------------------------------------------
+        // REMOVE POLYGON -----------------------------------------------------
 
-		PolygonIterator removePolygon( PolygonIterator polygon )
-		{
-			// Remove all polygon edges from vertices and delete edges
-			
-			Edge * startEdge = polygon->getStartEdge();
-			EdgeIterator currentEdge = startEdge->nextEdge;
-			Edge * edge = &( *currentEdge );
-			EdgeIterator nextEdge;
+        PolygonIterator removePolygon( PolygonIterator polygon )
+        {
+            // Remove all polygon edges from vertices and delete edges
+            
+            Edge * startEdge = polygon->getStartEdge();
+            EdgeIterator currentEdge = startEdge->nextEdge;
+            Edge * edge = &( *currentEdge );
+            EdgeIterator nextEdge;
 
-			VertexIterator currentVertex = startEdge->targetVertex;
-			VertexIterator nextVertex;
+            VertexIterator currentVertex = startEdge->targetVertex;
+            VertexIterator nextVertex;
 
-			while( edge != startEdge )
-			{
-				// Get next edge and vertex
+            while( edge != startEdge )
+            {
+                // Get next edge and vertex
 
-				nextEdge = currentEdge->nextEdge;
-				nextVertex = currentEdge->targetVertex;
+                nextEdge = currentEdge->nextEdge;
+                nextVertex = currentEdge->targetVertex;
 
-				// Remove current edge from vertex and deallocate
+                // Remove current edge from vertex and deallocate
 
-				currentVertex->removeEdge( currentEdge );
-				delete edge;
+                currentVertex->removeEdge( currentEdge );
+                delete edge;
 
-				// Advance to next edge
+                // Advance to next edge
 
-				currentEdge = nextEdge;
-				currentVertex = nextVertex;
-				edge = &( *currentEdge );
-			}
+                currentEdge = nextEdge;
+                currentVertex = nextVertex;
+                edge = &( *currentEdge );
+            }
 
-			// Remove final edge from vertex and deallocate
+            // Remove final edge from vertex and deallocate
 
-			currentVertex->removeEdge( currentEdge );
-			delete edge;
+            currentVertex->removeEdge( currentEdge );
+            delete edge;
 
-			// Remove polygon from list and return iterator to next
+            // Remove polygon from list and return iterator to next
 
-			return PolygonIterator( polygons->erase( polygon.iter ) );
-		}
+            return PolygonIterator( polygons->erase( polygon.iter ) );
+        }
 
-		// GET POLYGON COUNT --------------------------------------------------
+        // GET POLYGON COUNT --------------------------------------------------
 
-		size_type const getPolygonCount( void ) const
-		{
-			return polygons->size();
-		}
+        size_type const getPolygonCount( void ) const
+        {
+            return polygons->size();
+        }
 
-		// BEGIN VERTICES -----------------------------------------------------
+        // BEGIN VERTICES -----------------------------------------------------
 
-		VertexIterator beginVertices( void )
-		{
-			return VertexIterator( vertices->begin() );
-		}
+        VertexIterator beginVertices( void )
+        {
+            return VertexIterator( vertices->begin() );
+        }
 
-		ConstVertexIterator cbeginVertices( void ) const
-		{
-			return ConstVertexIterator
-			(
-				const_cast< VertexList * >( vertices )->begin()
-			);
-		}
+        ConstVertexIterator cbeginVertices( void ) const
+        {
+            return ConstVertexIterator
+            (
+                const_cast< VertexList * >( vertices )->begin()
+            );
+        }
 
-		// END VERTICES -------------------------------------------------------
+        // END VERTICES -------------------------------------------------------
 
-		VertexIterator endVertices( void )
-		{
-			return VertexIterator( vertices->end() );
-		}
+        VertexIterator endVertices( void )
+        {
+            return VertexIterator( vertices->end() );
+        }
 
-		ConstVertexIterator cendVertices( void ) const
-		{
-			return ConstVertexIterator
-			(
-				const_cast< VertexList * >( vertices )->end()
-			);
-		}
+        ConstVertexIterator cendVertices( void ) const
+        {
+            return ConstVertexIterator
+            (
+                const_cast< VertexList * >( vertices )->end()
+            );
+        }
 
-		// BEGIN POLYGONS -----------------------------------------------------
+        // BEGIN POLYGONS -----------------------------------------------------
 
-		PolygonIterator beginPolygons( void )
-		{
-			return PolygonIterator( polygons->begin() );
-		}
+        PolygonIterator beginPolygons( void )
+        {
+            return PolygonIterator( polygons->begin() );
+        }
 
-		ConstPolygonIterator cbeginPolygons( void ) const
-		{
-			return ConstPolygonIterator
-			(
-				const_cast< PolygonList * >( polygons )->begin()
-			);
-		}
+        ConstPolygonIterator cbeginPolygons( void ) const
+        {
+            return ConstPolygonIterator
+            (
+                const_cast< PolygonList * >( polygons )->begin()
+            );
+        }
 
-		// END POLYGONS -------------------------------------------------------
+        // END POLYGONS -------------------------------------------------------
 
-		PolygonIterator endPolygons( void )
-		{
-			return PolygonIterator( polygons->end() );
-		}
+        PolygonIterator endPolygons( void )
+        {
+            return PolygonIterator( polygons->end() );
+        }
 
-		ConstPolygonIterator cendPolygons( void ) const
-		{
-			return ConstPolygonIterator
-			(
-				const_cast< PolygonList * >( polygons )->end()
-			);
-		}
+        ConstPolygonIterator cendPolygons( void ) const
+        {
+            return ConstPolygonIterator
+            (
+                const_cast< PolygonList * >( polygons )->end()
+            );
+        }
 
-		// CLEAR --------------------------------------------------------------
+        // CLEAR --------------------------------------------------------------
 
-		void clear( void )
-		{
-			// Remove all polygons
+        void clear( void )
+        {
+            // Remove all polygons
 
-			PolygonIterator polyItEnd = endPolygons();
-			PolygonIterator polyIt = beginPolygons();
+            PolygonIterator polyItEnd = endPolygons();
+            PolygonIterator polyIt = beginPolygons();
 
-			while( polyIt != polyItEnd )
-			{
-				polyIt = removePolygon( polyIt );
-			}
+            while( polyIt != polyItEnd )
+            {
+                polyIt = removePolygon( polyIt );
+            }
 
-			// Clear vertices
+            // Clear vertices
 
-			vertices->clear();
-		}
+            vertices->clear();
+        }
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PUBLIC OPERATORS +++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		// COPY ASSIGNMENT ----------------------------------------------------
+        // COPY ASSIGNMENT ----------------------------------------------------
 
-		PolygonGraph< Traits > const & operator =
-			( PolygonGraph< Traits > const & other )
-		{
-			PolygonGraph< Traits > copy( *other );
+        PolygonGraph< Traits > const & operator =
+            ( PolygonGraph< Traits > const & other )
+        {
+            PolygonGraph< Traits > copy( *other );
 
-			clear();
+            clear();
 
-			delete this->vertices;
-			delete this->polygons;
+            delete this->vertices;
+            delete this->polygons;
 
-			this->vertices = copy.vertices;
-			this->polygons = copy.polygons;
+            this->vertices = copy.vertices;
+            this->polygons = copy.polygons;
 
-			copy.vertices = nullptr;
-			copy.polygons = nullptr;
+            copy.vertices = nullptr;
+            copy.polygons = nullptr;
 
-			return *this;
-		}
+            return *this;
+        }
 
-		// MOVE ASSIGNMENT ----------------------------------------------------
+        // MOVE ASSIGNMENT ----------------------------------------------------
 
-		PolygonGraph< Traits > const & operator =
-			( PolygonGraph< Traits > && other )
-		{
-			clear();
-			
-			delete this->vertices;
-			delete this->polygons;
+        PolygonGraph< Traits > const & operator =
+            ( PolygonGraph< Traits > && other )
+        {
+            clear();
+            
+            delete this->vertices;
+            delete this->polygons;
 
-			this->vertices = other.vertices;
-			this->polygons = other.polygons;
+            this->vertices = other.vertices;
+            this->polygons = other.polygons;
 
-			other.vertices = nullptr;
-			other.polygons = nullptr;
+            other.vertices = nullptr;
+            other.polygons = nullptr;
 
-			return *this;
-		}
+            return *this;
+        }
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		private:
+        private:
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // PRIVATE DATA +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-		VertexList * vertices;
-		PolygonList * polygons;
+        VertexList * vertices;
+        PolygonList * polygons;
 
-		// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	};
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    };
 
-	// ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+    // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 }
 
 // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-#endif
+#endif // POLYGON_GRAPH_H
